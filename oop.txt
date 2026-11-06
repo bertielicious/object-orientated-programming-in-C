@@ -1,0 +1,187 @@
+/*Absolutely, Phil. Since you already know C and are working with ESP32 projects, I'll teach Object-Oriented Programming
+(OOP) concepts using pure C, which is actually how many embedded systems are written.
+
+A common misconception is that:
+
+"C is not object-oriented."
+
+More accurately:
+
+"C doesn't have built-in OOP features, but you can implement OOP concepts yourself."
+
+What is OOP?
+
+OOP organises software around objects.
+
+An object contains:
+
+Data (variables)
+Behaviour (functions that operate on that data)
+
+Think of a real-world object:
+
+Light Bulb
+
+Data:
+
+On/Off state
+Brightness
+
+Behaviour:
+
+Turn On
+Turn Off
+Set Brightness
+
+In OOP we bundle these together.
+
+OOP Pillars
+
+The four major OOP concepts are:
+
+Encapsulation
+Abstraction
+Inheritance
+Polymorphism
+
+Let's build them one at a time using C.
+
+1. Encapsulation
+
+Encapsulation means:
+
+Keep data and functions together.
+
+Traditional C (not OOP style)
+C
+int brightness;
+bool is_on;
+ 
+void turn_on(void)
+{
+is_on = true;
+}
+
+Everything is global.
+
+Problems:
+
+Any file can change brightness
+No protection
+Difficult to manage
+
+
+OOP Style in C
+
+Create a structure.
+
+#include <stdio.h>
+#include <stdbool.h>
+
+
+    Structure representing a light bulb.
+
+    This is our "object".
+
+typedef struct
+{
+    bool is_on;       // Current state
+    int brightness;   // Brightness percentage
+}
+LightBulb;
+
+
+
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+
+typedef struct
+{
+    bool is_on;       // Current state
+    int brightness;   // Brightness percentage
+}
+LightBulb;//This is our "object".
+
+//Now create functions that operate on it.
+
+/*
+    Turn the bulb on.
+
+    bulb points to the object we want to modify.
+
+void LightBulb_turnOn(LightBulb *bulb)// LightBulb *pointer to a LightBulb object
+                                        //bulb     variable name
+{
+    bulb->is_on = true;
+}
+
+*/
+
+
+
+
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct
+{
+    bool is_on;
+    int brightness;
+}
+LightBulb;
+
+/*
+    Turn the bulb ON.
+*/
+void LightBulb_turnOn(LightBulb *bulb)
+{
+    bulb->is_on = true;
+}
+
+/*
+    Turn bulb OFF.
+*/
+void LightBulb_turnOff(LightBulb *bulb)
+{
+    bulb->is_on = false;
+}
+
+/*
+    Print bulb information.
+*/
+void LightBulb_print(const LightBulb *bulb)
+{
+    if (bulb->is_on)
+    {
+        printf("State = ON\n");
+    }
+    else
+    {
+        printf("State = OFF\n");
+    }
+
+    printf("Brightness = %d\n",
+           bulb->brightness);
+}
+
+int main(void)
+{
+    /*
+        Create a bulb object.
+    */
+    LightBulb kitchenBulb;
+
+    kitchenBulb.is_on = false;
+    kitchenBulb.brightness = 75;
+
+    LightBulb_turnOn(&kitchenBulb);
+
+    LightBulb_print(&kitchenBulb);
+
+    return 0;
+}
+//Output:
+State = ON
+Brightness = 75
